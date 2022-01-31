@@ -1,37 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-const styles = {
-  link: {
-    display: 'inline-block',
-    textDecoration: 'none',
-    padding: 12,
-    fontWeight: 700,
-    color: '#2A363B',
-  },
-  activeLink: {
-    color: '#E84A5F',
-  },
-}
+import s from './Navigation.module.css'
 
 function Navigation() {
   return (
-    <nav>
+    <div>
       <Link
-        to="/contacts"
-        style={styles.link}
-        // activeStyle={styles.activeLink}
+        to="/register"
+        className={s.Link}
+        // activeClassName={s.ActiveLink}
       >
-        Страница контактов
+        Регистрация
       </Link>
       <Link
         to="/login"
-        style={styles.link}
+        className={s.Link}
         // activeStyle={styles.activeLink}
       >
         Вход
       </Link>
-    </nav>
+    </div>
   )
 }
 

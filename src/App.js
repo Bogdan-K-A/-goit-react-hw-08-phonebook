@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import ContactsView from './views/ContactsView'
 import Container from './components/container'
-import HomeView from './views/HomeView'
-import RegisterView from './views/RegisterView'
-import LoginView from './views/LoginView'
-import AppBar from './components/Navigation/AppBar'
+import HomeView from './views/HomeView/HomeView'
+import RegisterView from './views/RegisterView/RegisterView'
+import LoginView from './views/LoginView/LoginView'
+import AppBar from './components/Navigation/AppBar/AppBar'
 
 export default function App() {
   return (

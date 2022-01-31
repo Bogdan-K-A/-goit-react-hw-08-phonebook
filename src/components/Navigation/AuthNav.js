@@ -1,37 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-const styles = {
-  link: {
-    display: 'inline-block',
-    textDecoration: 'none',
-    padding: 12,
-    fontWeight: 700,
-    color: '#2A363B',
-  },
-  activeLink: {
-    color: '#E84A5F',
-  },
-}
+import { NavLink } from 'react-router-dom'
+import s from './Navigation.module.css'
 
 function AuthNav() {
   return (
-    <div>
-      <Link
+    <nav>
+      <NavLink
+        // axact
         to="/"
-        style={styles.link}
-        //   activeStyle={styles.activeLink}
+        className={s.Link}
+        // activeClassName={s.ActiveLink}
       >
         Главная
-      </Link>
-      <Link
-        to="/register"
-        style={styles.link}
-        // activeStyle={styles.activeLink}
+      </NavLink>
+      <NavLink
+        to="/contacts"
+        className={s.Link}
+        // activeClassName={s.activeLink}
       >
-        Регистрация
-      </Link>
-    </div>
+        Страница контактов
+      </NavLink>
+    </nav>
   )
 }
 

@@ -1,16 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
-const styles = {
-  form: {
-    width: 320,
-  },
-  label: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: 15,
-  },
-}
+import s from './RegisterView.module.css'
 
 export default function RegisterView() {
   const dispatch = useDispatch()
@@ -45,18 +35,28 @@ export default function RegisterView() {
     <div>
       <h1>Страница регистрации</h1>
 
-      <form onSubmit={handelSubmit} autoComplete="off" style={styles.form}>
-        <label style={styles.label}>
+      <form onSubmit={handelSubmit} autoComplete="off" className={s.Form}>
+        <label className={s.Label}>
           Имя
-          <input type="text" name="name" onChange={handleChange} />
+          <input type="text" name="name" value={name} onChange={handleChange} />
         </label>
-        <label style={styles.label}>
+        <label className={s.Label}>
           Почта
-          <input type="email" name="email" onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
         </label>
-        <label style={styles.label}>
+        <label className={s.Label}>
           Пароль
-          <input type="password" name="password" onChange={handleChange} />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
         </label>
 
         <button type="submit">Регистрация</button>
