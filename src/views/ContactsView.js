@@ -7,7 +7,7 @@ import { useFetchContactsQuery } from '../redux/contacts/contactsSlice'
 
 export default function ContactsView() {
   const { data, isFetching } = useFetchContactsQuery()
-
+  console.log(data)
   return (
     <Container>
       <h1>Phoneboock</h1>

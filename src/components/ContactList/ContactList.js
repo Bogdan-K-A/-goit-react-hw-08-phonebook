@@ -1,5 +1,5 @@
 import { ContactElem } from '../ContactElem/ContactElem'
-import { getFilter } from '../../redux/filter/selector'
+import { getFilter } from '../../redux/filter/filter-selector'
 import { useSelector } from 'react-redux'
 import s from '../ContactElem/ContactElem.module.css'
 

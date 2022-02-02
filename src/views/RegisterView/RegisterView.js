@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+import {
+  useRegisterUserMutation,
+  // useFetchUsersQuery,
+} from '../../redux/auth/authSlice'
 import s from './RegisterView.module.css'
 
 export default function RegisterView() {
-  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [registerUser] = useRegisterUserMutation()
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -26,6 +30,9 @@ export default function RegisterView() {
 
   const handelSubmit = (e) => {
     e.preventDefault()
+
+    registerUser({ name, email, password })
+    // console.log('Регистрация:', { name, email, password })
     setName('')
     setEmail('')
     setPassword('')
