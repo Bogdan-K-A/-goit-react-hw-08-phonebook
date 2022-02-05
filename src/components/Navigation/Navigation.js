@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import s from './Navigation.module.css'
 
-function AuthNav() {
+function Navigation() {
   return (
     <nav>
       <NavLink
@@ -18,10 +18,10 @@ function AuthNav() {
         className={s.Link}
         // activeClassName={s.activeLink}
       >
-        Страница контактов
+        Контакты
       </NavLink>
     </nav>
   )
 }
 
-export default AuthNav
+export default Navigation

@@ -1,18 +1,13 @@
 import React from 'react'
 import s from './UserMenu.module.css'
 import avatar from './images/ava.png'
-import { useLogoutUserMutation } from '../../redux/auth/authSlice'
+import { useLogoutUserMutation } from '../../redux/auth/auth-redicer'
 import { useSelector } from 'react-redux'
-import { getName } from '../../redux/auth/auth-selector'
+import { getUserName } from '../../redux/auth/auth-selector'
 
 function UserMenu() {
-  const name = useSelector(getName)
+  const name = useSelector(getUserName)
   const [logoutUser] = useLogoutUserMutation()
-  console.log(name)
-
-  const logouClick = () => {
-    logoutUser('')
-  }
 
   return (
     <div className={s.Container}>
@@ -25,12 +20,12 @@ function UserMenu() {
       />
       <span className={s.Name}>
         Добро пожаловать!
-        {/* {name} */}
+        <span> {name}</span>
       </span>
       <button
         type="button"
         onClick={() => {
-          logouClick()
+          logoutUser()
         }}
       >
         Выйти

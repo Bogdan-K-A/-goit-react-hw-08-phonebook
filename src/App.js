@@ -1,47 +1,62 @@
+import { lazy, Suspense } from 'react'
+import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import ContactsView from './views/ContactsView'
 import Container from './components/container'
-import HomeView from './views/HomeView/HomeView'
-import RegisterView from './views/RegisterView/RegisterView'
-import LoginView from './views/LoginView/LoginView'
 import AppBar from './components/Navigation/AppBar/AppBar'
+import PrivatRouter from './components/PrivatRouter/PrivatRouter'
+import PublicRoute from './components/PrivatRouter/PublicRoute'
+import { getIsLoggedIn } from './redux/auth/auth-selector'
+
+const HomeView = lazy(() => import('./views/HomeView/HomeView'))
+const RegisterView = lazy(() => import('./views/RegisterView/RegisterView'))
+const LoginView = lazy(() => import('./views/LoginView/LoginView'))
+const ContactsView = lazy(() => import('./views/ContactsView'))
 
 export default function App() {
+  const isLoggedIn = useSelector(getIsLoggedIn)
   return (
     <Container>
       <AppBar />
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/register" element={<RegisterView />} />
-        <Route path="/login" element={<LoginView />} />
-        <Route path="/contacts" element={<ContactsView />} />
-      </Routes>
+      <Suspense fallback={<div>Загрузка...</div>}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <HomeView />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <RegisterView />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute redirectTo="/contacts" restricted>
+                <LoginView />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivatRouter redirectTo="/">
+                <ContactsView />
+              </PrivatRouter>
+            }
+          />
+          <Route
+            path="*"
+            element={isLoggedIn ? <ContactsView /> : <HomeView />}
+          />
+        </Routes>
+      </Suspense>
     </Container>
   )
 }
-
-/* ----------------------------- код из дмашки 7 ---------------------------- */
-// import Container from './components/container'
-// import ContactForm from './components/ContactForm'
-// import ContactList from './components/ContactList'
-// import ContactFilter from './components/ContactFilter'
-// import Spinner from './components/Spinner'
-// import { useFetchContactsQuery } from './redux/contacts/contactsSlice'
-
-// export default function App() {
-//   const { data, isFetching } = useFetchContactsQuery()
-
-//   return (
-//     <Container>
-
-//       <h1>Phoneboock</h1>
-//       <ContactForm contacts={data} />
-
-//       <h2>Contacts</h2>
-//       {data && data.length >= 2 && <ContactFilter />}
-
-//       {data && <ContactList contacts={data} />}
-//       {isFetching && <Spinner />}
-//     </Container>
-//   )
-// }

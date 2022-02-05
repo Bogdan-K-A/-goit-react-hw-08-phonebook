@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLoginUserMutation } from '../../redux/auth/authSlice'
+import { useLoginUserMutation } from '../../redux/auth/auth-redicer'
 import s from '../RegisterView/RegisterView.module.css'
 
 export default function LoginView() {

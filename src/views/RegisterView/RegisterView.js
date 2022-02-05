@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
-import {
-  useRegisterUserMutation,
-  // useFetchUsersQuery,
-} from '../../redux/auth/authSlice'
+import { useRegisterUserMutation } from '../../redux/auth/auth-redicer'
 import s from './RegisterView.module.css'
 
 export default function RegisterView() {
@@ -32,7 +28,7 @@ export default function RegisterView() {
     e.preventDefault()
 
     registerUser({ name, email, password })
-    // console.log('Регистрация:', { name, email, password })
+
     setName('')
     setEmail('')
     setPassword('')
