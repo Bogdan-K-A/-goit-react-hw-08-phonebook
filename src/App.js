@@ -1,11 +1,12 @@
-import { lazy, Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { useSelector } from 'react-redux'
-import { Routes, Route } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import Container from './components/container'
 import AppBar from './components/Navigation/AppBar/AppBar'
 import PrivatRouter from './components/PrivatRouter/PrivatRouter'
 import PublicRoute from './components/PrivatRouter/PublicRoute'
-import { getIsLoggedIn } from './redux/auth/auth-selector'
+import { useFetchUsersQuery } from './redux/auth/auth-redicer'
+import { getIsLoggedIn, getToken } from './redux/auth/auth-selector'
 
 const HomeView = lazy(() => import('./views/HomeView/HomeView'))
 const RegisterView = lazy(() => import('./views/RegisterView/RegisterView'))
@@ -14,49 +15,45 @@ const ContactsView = lazy(() => import('./views/ContactsView'))
 
 export default function App() {
   const isLoggedIn = useSelector(getIsLoggedIn)
+  const token = useSelector(getToken)
+
+  const { isLoading } = useFetchUsersQuery(token, {
+    skip: token === null || isLoggedIn,
+  })
+
   return (
     <Container>
-      <AppBar />
-      <Suspense fallback={<div>Загрузка...</div>}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute redirectTo="/contacts" restricted>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          <AppBar />
+          <Switch>
+            <Suspense fallback={<div>Загрузка...</div>}>
+              <PublicRoute exact path="/">
                 <HomeView />
               </PublicRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute redirectTo="/contacts" restricted>
+
+              <PublicRoute exact path="/register" restricted>
                 <RegisterView />
               </PublicRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute redirectTo="/contacts" restricted>
+
+              <PublicRoute
+                exact
+                path="/login"
+                redirectTo="/contacts"
+                restricted
+              >
                 <LoginView />
               </PublicRoute>
-            }
-          />
-          <Route
-            path="/contacts"
-            element={
-              <PrivatRouter redirectTo="/">
+
+              <PrivatRouter path="/contacts" redirectTo="/login">
                 <ContactsView />
               </PrivatRouter>
-            }
-          />
-          <Route
-            path="*"
-            element={isLoggedIn ? <ContactsView /> : <HomeView />}
-          />
-        </Routes>
-      </Suspense>
+            </Suspense>
+          </Switch>
+        </>
+      )}
     </Container>
   )
 }

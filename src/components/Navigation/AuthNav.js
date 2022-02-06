@@ -1,24 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import s from './Navigation.module.css'
 
 function AuthNav() {
   return (
     <div>
-      <Link
-        to="/register"
-        className={s.Link}
-        // activeClassName={s.ActiveLink}
-      >
+      <NavLink to="/register" className={s.Link} activeClassName={s.ActiveLink}>
         Регистрация
-      </Link>
-      <Link
-        to="/login"
-        className={s.Link}
-        // activeStyle={styles.activeLink}
-      >
+      </NavLink>
+      <NavLink to="/login" className={s.Link} activeClassName={s.ActiveLink}>
         Логин
-      </Link>
+      </NavLink>
     </div>
   )
 }

@@ -6,6 +6,9 @@
   color: #2a363b;
 }
 
+/* .Link:active {
+  color: #e84a5f;
+} */
 .ActiveLink {
   color: #e84a5f;
 }
