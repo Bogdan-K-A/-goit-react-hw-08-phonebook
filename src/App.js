@@ -29,7 +29,7 @@ export default function App() {
         <>
           <AppBar />
           <Switch>
-            <Suspense fallback={<div>Загрузка...</div>}>
+            <Suspense fallback={<p>Loading...</p>}>
               <PublicRoute exact path="/">
                 <HomeView />
               </PublicRoute>
